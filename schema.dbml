@@ -1,0 +1,64 @@
+Project rp_admin {
+  database_type: 'PostgreSQL'
+  Note: 'Description of the project'
+}
+
+Table client{
+  id int [PK,increment]
+  create_at timestamp [default: `now()`]
+  update_at timestamp
+  delete_at timestamp
+  first_name varchar [not null]
+  last_name varchar
+  client_type int [ref: - client_type.id, not null]
+  document varchar [not null]
+  email varchar [not null]
+  profession varchar
+  address varchar [not null]
+  precint varchar [not null]
+  municipality int [ref: - municipality.code, not null]
+  department int [ref: - department.code, not null]
+  status int [ref: - client_status.id, not null, default: 1]
+  latitude varchar
+  longitude varchar
+  nap varchar
+  access_point varchar
+}
+
+Table client_type{
+  id int [PK,increment]
+  name varchar [not null]
+}
+
+Table phone_numbers {
+  id int [PK,increment]
+  client_id int [ref: > client.id]
+  number varchar [not null]
+  create_at timestamp [default: `now()`]
+  update_at timestamp
+  delete_at timestamp
+}
+
+Table client_status{
+  id int [PK,increment]
+  status varchar [not null]
+  create_at timestamp [default: `now()`]
+  update_at timestamp
+  delete_at timestamp
+}
+
+Table municipality{
+  code int [PK]
+  name varchar [not null]
+  create_at timestamp [default: `now()`]
+  update_at timestamp
+  delete_at timestamp
+}
+
+Table department{
+  code int [PK]
+  name varchar [not null]
+  create_at timestamp [default: `now()`]
+  update_at timestamp
+  delete_at timestamp
+}
